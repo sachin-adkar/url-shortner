@@ -1,0 +1,24 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "rules": {
+        "no-shadowed-variable": false,
+        "no-console": [false, "log"],
+        "interface-name": false,
+        "object-literal-sort-keys": false,
+        "ordered-imports": false,
+        "quotemark": [true, "single", "avoid-escape"],
+        "max-line-length": [true, {"limit":80, "ignore-pattern": "^import |^export"}],
+        "curly": [true, "ignore-same-line"],
+        "one-line":[false],
+        "brace-style": [true, "allman", {
+            "allowSingleLine": true
+        }],
+        "indent": [true, "spaces", 8],
+        "align" : [true],
+        "forin": false
+    },
+    "rulesDirectory": []
+}

@@ -1,0 +1,381 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "URL Shortener",
+        "description": "",
+        "contact": {
+            "email": "sachin.adkarr@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Url Shortener",
+            "description": ""
+        }
+    ],
+    "paths": {
+        "/auth/getGoogleAuthUri": {
+            "get": {
+                "tags": [
+                    "GetAuthURI"
+                ],
+                "summary": "Fetches google sign in URL",
+                "operationId": "publicUrl",
+                "description": "Public Url to redirect to oauth screen",
+
+                "responses": {
+                    "200": {
+                        "description": "Success (OK)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/authUri"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorCodes"
+                                },
+                                                                "examples": {
+                                    "Failed to get receipt number": {
+                                      "value": {
+                                         "code": "01", "description": "Failed"
+                                      }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorCodes"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ]
+            }
+        },
+
+        "/auth/signIn": {
+            "post": {
+                "tags": [
+                    "SignIn"
+                ],
+                "summary": "Sign in with google",
+                "operationId": "Signin",
+                "description": "",
+
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/signInRequest"
+                      }
+                    }
+                  }
+                },
+
+                "responses": {
+                    "200": {
+                        "description": "Success (OK)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/signInResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorCodes"
+                                },
+                                "examples": {
+                                    "Invalid auth code": {
+                                      "value": {
+                                         "code": "S01", "description": "Invalid auth code"
+                                      }
+                                    },
+                                      "Authorization failed": {
+                                      "value": {
+                                         "code": "S02", "description": "Authorization failed"
+                                      }
+                                    },
+                                    "Failed to save the user": {
+                                      "value": {
+                                         "code": "S03", "description": "Failed to save the user"
+                                      }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorCodes"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ]
+            }
+        },
+
+        "/short": {
+            "post": {
+                "tags": [
+                    "ShortenUrl"
+                ],
+                "summary": "Generates a short URL",
+                "operationId": "Shorten",
+                "description": "",
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/shortenUrlRequest"
+                      }
+                    }
+                  }
+                },
+
+                "responses": {
+                    "200": {
+                        "description": "Success (OK)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/shortenUrlResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorCodes"
+                                },
+                                "examples": {
+                                    "Please enter a url": {
+                                      "value": {
+                                         "code": "U01", "description": "Please enter a url!"
+                                      }
+                                    },
+                                      "Enter a valid URL!": {
+                                      "value": {
+                                         "code": "U02", "description": "Enter a valid URL!"
+                                      }
+                                    },
+                                    "Failed to generate short URL": {
+                                      "value": {
+                                         "code": "S03", "description": "Failed to generate short URL"
+                                      }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorCodes"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ]
+            }
+        },
+
+        "/{id}": {
+            "get": {
+                "tags": [
+                    "Short URL"
+                ],
+                "summary": "Redirect to short URL",
+                "operationId": "Redirect",
+                "description": "Redirect to short URL",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "id from the url",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success (OK)"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorCodes"
+                                },
+                                "examples": {
+                                    "Failed to Navigate": {
+                                      "value": {
+                                        "code": "U04",
+                                        "description": "Failed to navigate"
+                                      }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorCodes"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "accessToken": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "accessToken": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "schemas": {
+              "authUri": {
+                "type": "object",
+                "properties": {
+                    "authUrl": {
+                        "type": "string",
+                        "title": "Code",
+                        "description": ""
+                    }
+                }
+            },
+            "ErrorCodes": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "title": "Code",
+                        "description": "Code of the error"
+                    },
+                    "description": {
+                        "type": "string",
+                        "title": "Description",
+                        "description": "Description of the error"
+                    }
+                }
+            },
+            "signInResponse":{
+                  "type": "object",
+                "properties": {
+                    "accessToken": {
+                        "type": "string",
+                        "title": "accessToken",
+                        "description": "jwt token"
+                    },
+                    "refreshToken": {
+                        "type": "string",
+                        "title": "refreshToken",
+                        "description": "refresh jwt token"
+                    },
+                    "userName": {
+                         "type": "string",
+                        "title": "userName",
+                        "description": "userName"
+                    },
+                    "profileUrl": {
+                         "type": "string",
+                        "title": "profileUrl",
+                        "description": "Profile picture url of the user"
+                    }
+                }
+            },
+            "signInRequest":{
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "title": "code",
+                        "description": "auth code returned by google"
+                    }
+                }
+            },
+           "shortenUrlRequest":{
+                "type": "object",
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "title": "URL",
+                        "description": "Url to be shortened"
+                    }
+                }
+            },
+            "shortenUrlResponse":{
+                "type": "object",
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "title": "URL",
+                        "description": "shortened url"
+                    }
+                }
+            }
+        }
+    }
+}
