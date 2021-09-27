@@ -9,7 +9,7 @@ export default async function(req: Request, res: Response)
     try
     {
         const createUrlRequest =
-            new CreateUrlRequest(req.body.url, req.user.userId);
+            new CreateUrlRequest(req.body.url, res.locals.user?.userId);
 
         const createUrlResponse: [ErrorCode, string] =
             await createUrl(createUrlRequest);

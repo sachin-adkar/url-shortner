@@ -15,7 +15,7 @@ export default function(req:Request, res: Response, next: NextFunction)
     {
         const decoded = jwt.verify(token, config.accessTokenSecret);
         console.log(decoded);
-        req.user = decoded;
+        res.locals.user = decoded;
     }
     catch (error)
     {
