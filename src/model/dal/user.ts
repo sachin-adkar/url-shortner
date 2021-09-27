@@ -1,6 +1,7 @@
 import { ProfileInfo } from '../response/profileInfo';
 import UserModel from './schema/User';
 import { ErrorCodes } from '../types/errorCodes';
+import { ErrorCode } from '../codes/errorCode';
 
 export default class User
 {
@@ -39,7 +40,7 @@ export default class User
         }
     }
 
-    static async addUser(profileInfo: ProfileInfo)
+    static async addUser(profileInfo: ProfileInfo): Promise<ErrorCode>
     {
         try
         {

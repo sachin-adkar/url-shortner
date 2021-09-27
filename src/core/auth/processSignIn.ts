@@ -59,9 +59,9 @@ const processSignIn = async(request: SignInRequest)
             // Save the user info in database
             const addUser = await User.addUser(profile[1]);
 
-            if (addUser[0] !== ErrorCodes.OK)
+            if (addUser !== ErrorCodes.OK)
             {
-                return [addUser[0], undefined];
+                return [addUser, undefined];
             }
         }
 
