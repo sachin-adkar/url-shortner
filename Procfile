@@ -1,1 +1,1 @@
-web: pm2 dist/src/server.js
+web: pm2 start dist/src/server.js
