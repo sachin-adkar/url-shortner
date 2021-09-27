@@ -25,7 +25,8 @@
   "include": [
     "./src",
     "./test",
-    "./package.json"
+    "./package.json",
+    "types.d.ts"
   ],
   "files": [
     "types.d.ts"
