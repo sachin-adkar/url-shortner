@@ -23,4 +23,5 @@ export const config = {
 
     serverUrl: process.env.SERVER_URL,
 
+    clientAppUrl: process.env.CLIENT_URL
 }

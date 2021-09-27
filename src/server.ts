@@ -6,7 +6,10 @@ import routes from './api';
 import cors from 'cors';
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: config.clientAppUrl,
+};
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
