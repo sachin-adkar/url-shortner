@@ -1,6 +1,12 @@
 # url-shortner
 Shortens a given URL
 
+**Techs**
+- Node.js
+- MongoDB
+- TypeScript
+- Heroku
+
 **Feature** 
 - SignIn with google using OAuth2 flow
 - Shortens a given URL
