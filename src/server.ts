@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { config } from './configs/configurations';
 import connect from './db/connect';
 import './api/auth/getAuthUri';
@@ -10,9 +10,15 @@ const corsOptions = {
   origin: config.clientAppUrl,
   optionsSuccessStatus: 200
 };
+
 app.use(cors(corsOptions));
 
 app.use(express.json());
+
+app.get('/health', (req: Request, res: Response) =>
+{
+  res.send('Server is up and running');
+});
 
 // Check if configs are loaded
 if (!config.dbUri || !config.rootUrl)
