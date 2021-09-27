@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "start": "pm2 start dist/server.js",
+    "start": "node dist/server.js",
     "postinstall": "tsc",
     "dev": "nodemon -x ts-node --files src/server.ts"
   },
