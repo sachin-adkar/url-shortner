@@ -1,12 +1,6 @@
 # url-shortner
 Shortens a given URL
 
-**Techs**
-- Node.js
-- MongoDB
-- TypeScript
-- Heroku
-
 **Feature** 
 - SignIn with google using OAuth2 flow
 - Shortens a given URL
@@ -25,6 +19,12 @@ Shortens a given URL
    
 - GET /<id>
     This route will be take care of the redirection to the original URL 
+    
+**Techs Used**
+- Node.js
+- MongoDB
+- TypeScript
+- Heroku
 
 **Link for API doc**: https://app.swaggerhub.com/apis-docs/Personal1681/Shortner-1.1/1.0.0
 
