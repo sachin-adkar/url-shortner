@@ -26,7 +26,7 @@
     "./src",
     "./test",
     "./package.json",
-    "types.d.ts"
+    "./types.d.ts"
   ],
   "files": [
     "types.d.ts"
