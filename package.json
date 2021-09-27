@@ -4,10 +4,12 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "start": "tsc && node dist/server.js",
+    "start": "node dist/server.js",
     "postinstall": "tsc",
-    "dev": "nodemon -x ts-node --files src/server.ts"
-  },
+    "watch-node": "nodemon dist/server.js",
+    "watch-ts": "tsc -w",
+    "deploy": "git add . && git commit -m Heroku && git push heroku master"
+},
   "author": "",
   "license": "ISC",
   "dependencies": {
