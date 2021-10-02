@@ -6,15 +6,19 @@ import UrlModel from './schema/Url';
 
 export class Url
 {
-    static async getUrl(id: string)
+    static async getShortUrl(longUrl: string)
     {
         try
         {
-            const urlInfo: any = await UrlModel.findById(id).exec();
+            const urlInfo: any = await UrlModel.findOne(
+                {
+                    longUrl,
+                }
+                ).exec();
 
             if (urlInfo)
             {
-                return urlInfo.url as string;
+                return urlInfo.shortUrlId as string;
             }
             else
             {
@@ -28,28 +32,61 @@ export class Url
         }
     }
 
-    static async addUrl(urlData: CreateUrlRequest)
-        : Promise<[ErrorCode, string]>
+    static async getLongUrl(shortUrlId: string)
     {
         try
         {
-            const url = new UrlModel(urlData);
+            const urlInfo: any = await UrlModel.findOne(
+                {
+                    shortUrlId,
+                }
+                ).exec();
+
+            if (urlInfo)
+            {
+                return urlInfo.longUrl as string;
+            }
+            else
+            {
+                return '';
+            }
+        }
+        catch (error)
+        {
+            console.log(error);
+            return '';
+        }
+    }
+
+    static async addUrl(longUrl: string, shortUrlId: string, userId: string)
+        : Promise<ErrorCode>
+    {
+        try
+        {
+            const url = new UrlModel(
+                {
+                    longUrl,
+                    shortUrlId,
+                    userId,
+                }
+            );
 
             const response = await url.save();
 
             if (response)
             {
-                const shortUrl = config.serverUrl + response._id;
-                return [ ErrorCodes.OK, shortUrl];
+                return ErrorCodes.OK;
             }
             else
             {
-                return [ ErrorCodes.FailedToCreateUrl, '' ];
+                return ErrorCodes.FailedToCreateUrl;
             }
         }
         catch (error)
         {
-            return [ ErrorCodes.FailedToCreateUrl, ''];
+            console.log('Error occured while storing the URL', error);
+
+            return ErrorCodes.FailedToCreateUrl;
         }
     }
 }

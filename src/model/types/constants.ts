@@ -5,3 +5,8 @@ export enum AuthConstants
     PROMT = 'consent',
     GRANT_TYPE = 'authorization_code',
 };
+
+export enum UrlConstants
+{
+    CHARACTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+}

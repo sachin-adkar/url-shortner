@@ -5,7 +5,7 @@ import { ErrorCodes } from '../../model/types/errorCodes';
 export default async function(id: string)
     :Promise<[ErrorCode, string]>
 {
-    const originalUrl = await Url.getUrl(id);
+    const originalUrl = await Url.getLongUrl(id);
 
     if (originalUrl)
     {

@@ -2,14 +2,19 @@ import Mongoose from 'mongoose';
 
 const UrlSchema= new Mongoose.Schema(
 {
-url:
-    {
-        type:String,
-    },
-userId:
-    {
-        type: String,
-    }
+    longUrl:
+        {
+            type:String,
+        },
+    userId:
+        {
+            type: String,
+        },
+    shortUrlId:
+        {
+            type: String,
+            unique: true,
+        }
 });
 
 const UrlModel = Mongoose.model('Urls', UrlSchema);

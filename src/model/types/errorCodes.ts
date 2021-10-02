@@ -19,5 +19,6 @@ export class ErrorCodes
     public static readonly InvalidUrl: ErrorCode = { code: 'U02', description: 'Enter a valid URL!'};
     public static readonly FailedToCreateUrl: ErrorCode = { code: 'U03', description: 'Failed to generate short URL'};
     public static readonly FailedToNavigate: ErrorCode = { code: 'U04', description: 'Failed to navigate'};
+    public static readonly FailedToFetchUrlUniqueId: ErrorCode = { code: 'U05', description: 'Failed to get url unique ID'};
 
 };
